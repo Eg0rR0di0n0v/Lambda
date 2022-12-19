@@ -2,10 +2,13 @@ import java.util.LinkedList;
 import java.util.List;
 public class Main {
     public static void main(String[] args) {
-        final int numPerson = 15;
+        final int numPerson = 30;
+        final int MinimumAge = 18;
+
 
         List<Person> peoplesList = generateClients(numPerson);
         peoplesList.sort(new PeopleComparator());
+        peoplesList.removeIf(person -> person.getAge() < MinimumAge);
 
         System.out.print("\nList:\n");
         for (Person person : peoplesList) {
@@ -14,7 +17,7 @@ public class Main {
     }
 
     public static LinkedList<Person> generateClients(int numPerson) {
-        int maxWordsInSurname = 5; // 0 - There is no limit
+        int maxWordsInSurname = 0; // 0 - There is no limit
         LinkedList<Person> generateClients = new LinkedList<>();
         Person newPerson = new Person();
         System.out.println("______________DATA______________");
