@@ -3,9 +3,23 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         final int numPerson = 15;
+        final int limitWordsInSurname = 5;
 
         List<Person> peoplesList = generateClients(numPerson);
-        peoplesList.sort(new PeopleComparator());
+//        peoplesList.sort(new PeopleComparator());
+
+        peoplesList.sort((o1, o2) -> {
+            int o1NumOfWords, o2NumOfWords;
+            String[] sn1 = o1.getSurname().split("-", limitWordsInSurname);
+            String[] sn2 = o2.getSurname().split("-", limitWordsInSurname);
+            o1NumOfWords = sn1.length;
+            o2NumOfWords = sn2.length;
+            if (o1NumOfWords == o2NumOfWords) {
+                return o2.getAge() - o1.getAge();
+            } else {
+                return o2NumOfWords - o1NumOfWords;
+            }
+        });
 
         System.out.print("\nList:\n");
         for (Person person : peoplesList) {
@@ -14,7 +28,7 @@ public class Main {
     }
 
     public static LinkedList<Person> generateClients(int numPerson) {
-        int maxWordsInSurname = 5; // 0 - There is no limit
+        int maxWordsInSurname = 6; // 0 - There is no limit
         LinkedList<Person> generateClients = new LinkedList<>();
         Person newPerson = new Person();
         System.out.println("______________DATA______________");
